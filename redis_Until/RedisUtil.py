@@ -14,7 +14,7 @@ class RedisUtil(object):
 
     def is_nick_already_exists(self, nick):
         """
-        你需要实现这个方法
+
 
         判断这个昵称是不是已经登录过了。如果已经登录，那么就不能使用这个昵称。
         使用Redis的集合实现，如果把昵称sadd到集合中返回1，说明这个昵称之前
@@ -31,10 +31,10 @@ class RedisUtil(object):
 
     def set_token(self, nick, token):
         """
-        你需要实现这个方法
+
 
         设定Token，这样的好处是只需要登录一次，以后可以直接访问/room页面直接进入聊天窗口
-        使用Redis的字符串实现，字符串的Key是"cookie-昵称"，例如"cookie-青南"，值为参数token
+        使用Redis的字符串实现，字符串的Key是"cookie-昵称"，例如"cookie-wheaesong"，值为参数token
         :param nick: 昵称
         :param token: md5字符串
         :return: None
@@ -44,11 +44,11 @@ class RedisUtil(object):
 
     def get_token(self, nick):
         """
-        你需要实现这个方法
+
 
         获取Token，从"cookie-昵称"token并返回。
 
-        使用Redis的字符串实现，字符串的Key为"cookie-昵称"，例如"cookie-青南"，如果这个Key存在，
+        使用Redis的字符串实现，字符串的Key为"cookie-昵称"，例如"cookie-wheaesong"，如果这个Key存在，
         就获取它的值并返回，如果这个Key不存在，就返回None
         :param nick: 昵称
         :return: None 或者 Token字符串
@@ -59,7 +59,7 @@ class RedisUtil(object):
 
     def get_chat_list(self):
         """
-        你需要实现这个方法
+
 
         获取聊天消息列表。
         使用Redis的列表实现。Key为self.chat_list属性中保存的字符串，可以直接使用。
@@ -79,7 +79,7 @@ class RedisUtil(object):
 
     def get_nick_msg_expire_time(self, nick, msg):
         """
-        你需要实现这个方法
+
 
         获取某一个昵称发送某一条消息的过期时间。这个功能的作用是
         为了防止同一个用户短时间发送大量相同信息刷屏。
@@ -101,14 +101,14 @@ class RedisUtil(object):
 
     def push_chat_info(self, chat_info):
         """
-        你需要实现这个方法
+
         把聊天信息存入列表的右侧。
         使用Redis的集合实现，对应的Key为self.chat_list中保存的字符串。
         把chat_info字典先转化为JSON字符串，再存入Redis中列表中。
 
         为了防止列表消息太长，因此需要使用ltrim命令删除多余的信息，只保留
         列表最右侧的20条
-        :param chat_info: 字典，格式为{'msg': '信息', 'nick': '青南', 'post_time': '2018-07-22 10:00:12'}
+        :param chat_info: 字典，格式为{'msg': '信息', 'nick': '用户名', 'post_time': '2018-07-22 10:00:12'}
         :return: None
         """
         self.client.rpush(self.chat_list, json.dumps(chat_info))
@@ -116,7 +116,7 @@ class RedisUtil(object):
 
     def set_nick_msg_expire_time(self, nick, msg):
         """
-        你需要实现这个方法
+
 
         设定Key的过期时间，这个功能的目的是限定同一个用户在2分钟内不能发送同样的内容。
         为了防止信息太长，因此把信息编码为md5以后再与昵称拼接以缩短Key的长度。
